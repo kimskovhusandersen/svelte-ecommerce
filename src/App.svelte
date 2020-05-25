@@ -1,5 +1,7 @@
 <script>
-  // your script goes here
+  // router
+  import { Router, Route, Link } from 'svelte-routing';
+  // pages
   import About from './pages/About.svelte';
   import Checkout from './pages/Checkout.svelte';
   import Home from './pages/Home.svelte';
@@ -7,8 +9,12 @@
   import Products from './pages/Products.svelte';
   import ProductTemplate from './pages/ProductTemplate.svelte';
 
-  // router
-  import { Router, Route, Link } from 'svelte-routing';
+  // components
+  import Navbar from './components/Navbar/Navbar.svelte';
+  import Sidebar from './components/Navbar/Sidebar.svelte';
+
+  // store
+  import globalStore from './stores/globalStore.js';
 </script>
 
 <style>
@@ -19,11 +25,10 @@
 </style>
 
 <Router>
-  <nav class="navbar">
-    <Link to="/">Home</Link>
-    <Link to="/about">About</Link>
-    <Link to="/products">Products</Link>
-  </nav>
+  <Navbar />
+  {#if $globalStore.showSidebar}
+    <Sidebar />
+  {/if}
   <Route path="/" component={Home} />
   <Route path="/about" component={About} />
   <Route path="/products" component={Products} />
