@@ -1,8 +1,7 @@
 import { writable, derived } from 'svelte/store';
-import localCart from '../localCart';
 
 // store
-const cart = writable([...localCart]);
+const cart = writable(getStorageCart());
 
 // cart total
 export const cartTotal = derived(cart, ($cart) => {
@@ -13,7 +12,9 @@ export const cartTotal = derived(cart, ($cart) => {
 });
 
 // local functions
-const remove = (items, id) => items.filter((item) => item.id !== id);
+function remove(items, id) {
+  return items.filter((item) => item.id !== id);
+}
 
 function increase(items, id) {
   return items.map((item) => {
@@ -31,19 +32,20 @@ function decrease(items, id) {
 }
 
 // global functions
-export const removeItem = (id) =>
-  cart.update((state) => remove(state, id));
+export function removeItem(id) {
+  return cart.update((state) => remove(state, id));
+}
 
-export const changeAmount = (id, action) => {
-  cart.update((state) => {
+export function changeAmount(id, action) {
+  return cart.update((state) => {
     return action === 'increase'
       ? increase(state, id)
       : decrease(state, id);
   });
-};
+}
 
-export const addToCart = (product) => {
-  cart.update((state) => {
+export function addToCart(product) {
+  return cart.update((state) => {
     const { id } = product;
     const existing = state.find((item) => item.id === id);
     if (existing) {
@@ -53,8 +55,17 @@ export const addToCart = (product) => {
       return [...state, { ...product, amount: 1 }];
     }
   });
-};
+}
 
 // local storage
+function getStorageCart() {
+  return localStorage.getItem('cart')
+    ? JSON.parse(localStorage.getItem('cart'))
+    : [];
+}
+
+export function setStorageCart(cartState) {
+  localStorage.setItem('cart', JSON.stringify(cartState));
+}
 
 export default cart;

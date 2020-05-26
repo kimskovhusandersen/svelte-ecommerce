@@ -3,6 +3,7 @@
   import routes from '../../constants/routes';
   // components
   import CartButton from '../Cart/CartButton.svelte';
+  import LoginLink from '../LoginLink.svelte';
 </script>
 
 <style>
@@ -28,9 +29,10 @@
           class="logo" />
       </a>
       <div class="nav-aside">
+        <!-- login button -->
+        <LoginLink />
         <!-- cart button -->
         <CartButton />
-        <!-- login button -->
       </div>
     </div>
   </div>

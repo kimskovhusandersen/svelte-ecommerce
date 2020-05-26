@@ -7,7 +7,7 @@
   //store
 
   // itemlist
-  let user = false;
+  import user from '../../stores/user';
 </script>
 
 <style>
@@ -31,7 +31,7 @@
       <ItemsList />
       <!-- cart footer -->
       <div class="cart-footer">
-        {#if user}
+        {#if $user.token}
           <a
             href="/checkout"
             class="btn btn-primary btn-block"

@@ -1,7 +1,8 @@
 <script>
   import { link } from 'svelte-routing';
-
+  // components
   import CartButton from '../Cart/CartButton.svelte';
+
   // global store
   import globalStore from '../../stores/globalStore.js';
   let openSidebar = globalStore.toggleItem;
@@ -26,6 +27,7 @@
         class="logo" />
     </a>
     <CartButton />
+
   </div>
 
 </nav>
