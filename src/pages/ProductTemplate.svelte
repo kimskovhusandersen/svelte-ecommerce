@@ -1,6 +1,7 @@
 <script>
   import Loading from '../components/Loading.svelte';
   import { link } from 'svelte-routing';
+  import globalStore from '../stores/globalStore';
   // store
   import products from '../stores/defaultProducts';
   // variables
@@ -39,7 +40,7 @@
         <p>{product.description}</p>
         <button
           class="btn btn-primary btn-block"
-          on:click={() => console.log('hi')}>
+          on:click={() => globalStore.toggleItem('showCart', true)}>
           add to cart
         </button>
       </article>
