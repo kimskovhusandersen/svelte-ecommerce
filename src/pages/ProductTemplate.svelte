@@ -4,14 +4,13 @@
   import globalStore from '../stores/globalStore';
   // store
   import products from '../stores/defaultProducts';
+  import { addToCart } from '../stores/cart.js';
   // variables
   export let location;
   export let id;
 
   // reactive variables
   $: product = $products.find(item => item.id === Number(id));
-
-  //global store
 </script>
 
 <style>
@@ -40,7 +39,10 @@
         <p>{product.description}</p>
         <button
           class="btn btn-primary btn-block"
-          on:click={() => globalStore.toggleItem('showCart', true)}>
+          on:click={() => {
+            addToCart(product);
+            globalStore.toggleItem('showCart', true);
+          }}>
           add to cart
         </button>
       </article>

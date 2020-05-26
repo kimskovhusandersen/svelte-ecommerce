@@ -2,7 +2,6 @@
   import { link } from 'svelte-routing';
   import routes from '../../constants/routes';
   // components
-  import Navbar from './Navbar.svelte';
   import CartButton from '../Cart/CartButton.svelte';
 </script>
 

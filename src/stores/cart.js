@@ -6,8 +6,6 @@ const cart = writable([...localCart]);
 
 // cart total
 export const cartTotal = derived(cart, ($cart) => {
-  console.log({ $cart });
-
   let total = $cart.reduce((acc, item) => {
     return (acc += item.price * item.amount);
   }, 0);
@@ -38,8 +36,22 @@ export const removeItem = (id) =>
 
 export const changeAmount = (id, action) => {
   cart.update((state) => {
-    if (action === 'increase') return increase(state, id);
-    if (action === 'decrease') return decrease(state, id);
+    return action === 'increase'
+      ? increase(state, id)
+      : decrease(state, id);
+  });
+};
+
+export const addToCart = (product) => {
+  cart.update((state) => {
+    const { id } = product;
+    const existing = state.find((item) => item.id === id);
+    if (existing) {
+      existing.amount++;
+      return state;
+    } else {
+      return [...state, { ...product, amount: 1 }];
+    }
   });
 };
 
